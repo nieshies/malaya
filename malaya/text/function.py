@@ -837,6 +837,8 @@ def fix_spacing(text):
 def whisper_textcleaning(text):
     text = re.sub(r'\[.*?\]|\(.*?\)', '', text)
     text = re.sub(r'\b(?:ok|okay)\b', 'OK', text, flags=re.IGNORECASE)
+    text = re.sub(r'\b(h+m+|erm+|mm+|uhh+)\b', 'herm', text, flags=re.IGNORECASE)
+    text = re.sub(r'\b(a+h+|a+\s*a+)(?=[\s,\.!?]|$)', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\.{2,}', ',', text)
     text = re.sub(r'(?<=\s)-(\w+)\b', r'\1', text)
     text = re.sub(r'\b(\w+)-(?=\s|$)', r'\1', text)
@@ -844,4 +846,7 @@ def whisper_textcleaning(text):
     text = re.sub(r'([.,!?])(?=[^\s])', r'\1 ', text)
     text = fix_spacing(text)
     text = re.sub(r'\s+', ' ', text).strip()
+    if text[0] in ',.?:':
+        text = text[1:].strip()
+        text = re.sub(r'\s+', ' ', text).strip()
     return text
