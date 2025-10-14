@@ -834,7 +834,7 @@ def fix_spacing(text):
     text = re.sub(r'\s+([,\.!?])', r'\1', text)
     return text
 
-def beautify_for_whisper_lines(text):
+def whisper_textcleaning(text):
     text = re.sub(r'\[.*?\]|\(.*?\)', '', text)
     text = re.sub(r'\b(?:ok|okay)\b', 'OK', text, flags=re.IGNORECASE)
     text = re.sub(r'\.{2,}', ',', text)
