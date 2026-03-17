@@ -227,3 +227,37 @@ def to_year(value):
         cardinal year representation
     """
     return to_cardinal(value)
+
+def to_year(value, english=False):  
+    """  
+    Translate from number input to cardinal year text representation  
+  
+    Parameters  
+    ----------  
+    value: int  
+        The year number  
+    english: bool, optional (default=False)  
+        Whether to return English pronunciation  
+  
+    Returns  
+    -------  
+    result: str  
+        cardinal year representation  
+    """  
+    if not isinstance(value, int):  
+        value = int(value)  
+      
+    # Handle non-4-digit years with cardinal conversion  
+    if value < 1000 or value > 9999:  
+        return to_cardinal(value, english=english)  
+      
+    year_str = str(value)  
+      
+    # Handle years like 2005, 3000 where second digit is '0'  
+    if year_str[1] == '0':  
+        return to_cardinal(value, english=english)  
+      
+    # Handle standard 4-digit years: split into two parts  
+    first_part = to_cardinal(int(year_str[:2]), english=english)  
+    second_part = to_cardinal(int(year_str[2:]), english=english)  
+    return f'{first_part} {second_part}'

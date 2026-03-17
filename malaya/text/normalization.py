@@ -153,11 +153,12 @@ def to_cardinal(n, english=False):
     else:
         return num2word.to_cardinal(n)
 
-def to_ordinal(n, english=False):
-    if english:
-        s = num2words(n, to='ordinal').replace('-', ' ')
-        return re.sub(r'[ ]+', ' ', s).strip()
-    else:
+def to_ordinal(n, english=False):  
+    if english:  
+        s = num2words(n, to='ordinal')  
+        # Don't remove hyphens for proper ordinal formatting  
+        return re.sub(r'[ ]+', ' ', s).strip()  
+    else:  
         return num2word.to_ordinal(n)
 
 def initialize_sastrawi():
