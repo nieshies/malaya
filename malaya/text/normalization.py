@@ -130,8 +130,8 @@ digits = '0123456789'
 sastrawi_stemmer = None
 
 time_descriptors = {
-    "am": "pagi", "a.m.": "pagi", "morning": "pagi", "pagi": "pagi", "pgi": "pagi",
-    "pm": "petang", "p.m.": "petang", "petang": "petang", "ptg": "petang",
+    "A.M.": "am", "AM": "am", "am": "am", "a.m.": "am", "am": "pagi", "a.m.": "pagi", "morning": "pagi", "pagi": "pagi", "pgi": "pagi",
+    "P.M.": "pm", "PM": "pm", "pm": "pm", "p.m.": "pm", "pm": "petang", "p.m.": "petang", "petang": "petang", "ptg": "petang",
     "tengahari": "tengahari", "tngahari": "tengahari",
     "malam": "malam",
     "hours": "", "hour": "", "hrs": "", "jam": ""

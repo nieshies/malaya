@@ -548,17 +548,15 @@ class Normalizer:
                 index += 1
                 continue
 
-            if self._compiled['phone'].search(word_lower):
-                s = f'index: {index}, word: {word}, condition phone'
-                logger.debug(s)
-                if normalize_telephone:
-                    splitted = word.split('-')
-                    if len(splitted) == 2:
-                        left = put_spacing_num(splitted[0], english=normalize_in_english)
-                        right = put_spacing_num(splitted[1], english=normalize_in_english)
-                        word = f'{left}, {right}'
-                result.append(word)
-                index += 1
+            if self._compiled['phone'].search(word_lower):  
+                if normalize_telephone:  
+                    splitted = word.split('-')  
+                    if len(splitted) == 2:  
+                        left = put_spacing_num(splitted[0], english=normalize_in_english)  
+                        right = put_spacing_num(splitted[1], english=normalize_in_english)  
+                        word = f'{left}, {right}' 
+                result.append(word)  
+                index += 1  
                 continue
 
             if self._compiled['user'].search(word_lower):
@@ -1089,20 +1087,20 @@ class Normalizer:
                         if normalize_time:
                             hour = parsed.strftime('%I')
                             hour = hour.lstrip('0')
-                            if parsed.hour < 12:
-                                if normalize_in_english:
-                                    period = 'morning'
-                                else:
-                                    period = 'pagi'
-                            elif parsed.hour < 19:
-                                if normalize_in_english:
-                                    period = 'evening'
-                                else:
-                                    period = 'petang'
-                            else:
-                                if normalize_in_english:
-                                    period = 'night'
-                                else:
+                            if parsed.hour < 12:  
+                                if normalize_in_english:  
+                                    period = 'am'  # Changed from 'morning'  
+                                else:  
+                                    period = 'pagi'  
+                            elif parsed.hour < 19:  
+                                if normalize_in_english:  
+                                    period = 'pm'  # Changed from 'evening'  
+                                else:  
+                                    period = 'petang'  
+                            else:  
+                                if normalize_in_english:  
+                                    period = 'pm'  # Changed from 'night'  
+                                else:  
                                     period = 'malam'
                             hour = cardinal(hour, english=normalize_in_english)
                             if int(minute) > 0:
