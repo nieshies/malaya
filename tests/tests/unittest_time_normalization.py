@@ -9,12 +9,20 @@ import malaya
   
   
 class TestTimeNormalization(unittest.TestCase):  
-    """Test time normalization with malaya.normalize.normalizer()"""  
+    """Test time normalization with malaya.normalizer.rules.load()"""  
       
     @classmethod  
     def setUpClass(cls):  
-        """Set up the normalizer once for all tests"""  
-        cls.normalizer = malaya.normalize.normalizer()  
+        """Set up the normalizer once for all tests using the enhanced load method"""  
+        # Load language model for spelling correction  
+        lm = malaya.language_model.kenlm(model = 'bahasa-wiki-news')  
+          
+        # Load speller and stemmer as shown in documentation  
+        corrector = malaya.spelling_correction.probability.load(language_model = lm)  
+        stemmer = malaya.stem.huggingface()  
+        
+        # Use the enhanced load method with corrector and stemmer  
+        cls.normalizer = malaya.normalizer.rules.load(corrector, stemmer)  
       
     def test_service_hours_normalization(self):  
         """Test service hours time normalization: 'Waktu perkhidmatan kami adalah dari pukul 9 pagi hingga 6 petang'"""  
